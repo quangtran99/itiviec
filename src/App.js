@@ -1,26 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import Login from "./pages/Login";
+import Jobs from "./pages/Jobs";
+import Detail from "./pages/Detail";
+import { Switch, Route, Redirect } from "react-router-dom";
+import { useSelector } from "react-redux";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
+  let user = useSelector((state) => state.user);
+
+  const ProtectedRoute = (props) => {
+    if (user.isAuthenticated === true) {
+      return <Route {...props} />;
+    } else {
+      return <Redirect to="/login" />;
+    }
+  };
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Switch>
+        <Route exact path="/" component={Jobs} />
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/jobs" component={Jobs} />
+        {/* <Route exact path ="/jobs" component={Jobs}/> */}
+        <ProtectedRoute
+          path="/jobs/:id"
+          render={(props) => <Detail jobtitle="hahaha" {...props} />}
+        />
+      </Switch>
     </div>
   );
 }
 
 export default App;
+
+// if you want to see detail page, you need to login
