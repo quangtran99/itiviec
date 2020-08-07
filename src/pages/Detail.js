@@ -9,7 +9,7 @@ import moment from "moment";
 
 
 
-const apiAddress = `http://localhost:3001`;
+const apiAddress = process.env.REACT_APP_SERVER_URL;
 export default function Detail({ props }) {
   console.log("whats inside of props?", props);
 

@@ -15,16 +15,15 @@ export default function Login() {
         e.preventDefault();
         let user = { email: email, password: password }
         dispatch(loginMiddleware(user))
-        redirect()
 
     }
-    function redirect() {
+
     if (user.isAuthenticated == true) {
         console.log("hehehe")
         {alert("Login succesfully")}
-        return <Redirect to="/jobs/:id" />;
+        return <Redirect to="/" />;
       }
-    }
+
 
 
     return (
